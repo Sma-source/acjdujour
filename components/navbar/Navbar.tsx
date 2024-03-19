@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { ModeToggle } from "../ModeToggle";
 import { Button } from "../ui/button";
+import LogIn from "./LogIn";
 
 const Navbar = () => {
   return (
@@ -15,7 +16,7 @@ const Navbar = () => {
         <div className="flex items-center gap-x-5">
           <ModeToggle />
           <div className="flex items-center gap-x-5">
-            <Button>Se connecter</Button>
+            <LogIn />
           </div>
         </div>
       </div>
