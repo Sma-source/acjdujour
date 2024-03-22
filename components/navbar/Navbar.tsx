@@ -5,17 +5,18 @@ import { Button } from "../ui/button";
 import LogIn from "./LogIn";
 import getUserSession from "@/lib/getUserSession";
 import createClient from "@/lib/supabase/server";
+import Profile from "./Profile";
 
 const Navbar = async () => {
   const { data } = await getUserSession();
 
-  const logoutAction = async () => {
-    "use server";
-    const supabase = await createClient();
-    await supabase.auth.signOut();
-  };
+  // const logoutAction = async () => {
+  //   "use server";
+  //   const supabase = await createClient();
+  //   await supabase.auth.signOut();
+  // };
   return (
-    <nav className="border-b bg-background h-[10vh] flex items-center">
+    <nav className="border-b bg-background h-[12vh] flex items-center">
       <div className="container flex items-center justify-between">
         <Link href="/">
           <h1 className="font-bold text-3xl">
@@ -29,13 +30,7 @@ const Navbar = async () => {
               <LogIn />
             </div>
           )}
-          {data.session && (
-            <form action={logoutAction} className="flex items-center">
-              <div className="gap-x-5">
-                <Button>Logout</Button>
-              </div>
-            </form>
-          )}
+          {data.session && <Profile />}
         </div>
       </div>
     </nav>
