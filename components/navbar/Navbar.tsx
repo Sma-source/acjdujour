@@ -1,14 +1,16 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import { ModeToggle } from "../ModeToggle";
-import { Button } from "../ui/button";
+
 import LogIn from "./LogIn";
-import getUserSession from "@/lib/getUserSession";
-import createClient from "@/lib/supabase/server";
+
+import { useUser } from "@/lib/store/user";
 import Profile from "./Profile";
 
-const Navbar = async () => {
-  const { data } = await getUserSession();
+const Navbar = () => {
+  const user = useUser((state) => state.user);
+  // const { data } = await getUserSession();
 
   // const logoutAction = async () => {
   //   "use server";
@@ -25,12 +27,8 @@ const Navbar = async () => {
         </Link>
         <div className="flex items-center gap-x-5">
           <ModeToggle />
-          {!data.session && (
-            <div className="flex items-center gap-x-5">
-              <LogIn />
-            </div>
-          )}
-          {data.session && <Profile />}
+
+          {user ? <Profile /> : <LogIn />}
         </div>
       </div>
     </nav>
