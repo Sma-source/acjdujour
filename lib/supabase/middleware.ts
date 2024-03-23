@@ -60,5 +60,5 @@ export async function updateSession(request: NextRequest) {
   if (!data.user) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  return response;
+  return NextResponse.next();
 }
