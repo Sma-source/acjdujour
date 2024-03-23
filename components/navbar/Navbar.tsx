@@ -27,7 +27,6 @@ const Navbar = () => {
         </Link>
         <div className="flex items-center gap-x-5">
           <ModeToggle />
-
           {user ? <Profile /> : <LogIn />}
         </div>
       </div>
