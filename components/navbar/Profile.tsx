@@ -12,8 +12,10 @@ import { CreditCard, Home, LockOpenIcon, Settings } from "lucide-react";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-import createClient from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+
+import { useUser } from "@/lib/store/user";
 
 export const navItems = [
   { name: "Tableau de bord", href: "/dashboard", icon: Home },
@@ -22,18 +24,21 @@ export const navItems = [
 ];
 
 const Profile = () => {
+  const router = useRouter();
+  const user = useUser((state) => state.user);
+  const setUser = useUser((state) => state.setUser);
+  const supabase = createClient();
   const logoutAction = async () => {
-    "use server";
-    const supabase = await createClient();
     await supabase.auth.signOut();
-    redirect("/");
+    setUser(null);
+    router.refresh();
   };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10 rounded-full">
-            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarImage src={user?.user_metadata.avatar_url} />
             <AvatarFallback>Jan</AvatarFallback>
           </Avatar>
         </Button>
@@ -41,9 +46,11 @@ const Profile = () => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Sma</p>
+            <p className="text-sm font-medium leading-none">
+              {user?.user_metadata.name}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
-              smain.rabhi@gmail.com
+              {user?.user_metadata.email}
             </p>
           </div>
         </DropdownMenuLabel>
@@ -68,15 +75,14 @@ const Profile = () => {
           className="w-full flex justify-between items-center"
           asChild
         >
-          <form action={logoutAction}>
-            <Button
-              variant="ghost"
-              className="w-full flex justify-between items-center"
-            >
-              Se déconnecter
-              <LockOpenIcon className="w-4 h-4" />
-            </Button>
-          </form>
+          <Button
+            onClick={logoutAction}
+            variant="ghost"
+            className="w-full flex justify-between items-center"
+          >
+            Se déconnecter
+            <LockOpenIcon className="w-4 h-4" />
+          </Button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
