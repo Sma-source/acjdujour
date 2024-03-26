@@ -12,7 +12,7 @@ const LogIn = () => {
     supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${location.origin}/auth/callback?next=${pathname}`,
+        redirectTo: `${location.origin}/auth/callback`,
       },
     });
   };
