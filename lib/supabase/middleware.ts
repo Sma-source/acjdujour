@@ -55,10 +55,10 @@ export async function updateSession(request: NextRequest) {
   );
 
   const { data } = await supabase.auth.getUser();
-  console.log(data);
+  // console.log(data);
 
   if (!data.user) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  return NextResponse.next();
+  return response;
 }
