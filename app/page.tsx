@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { readBlog } from "@/lib/actions/acj";
 import { StarIcon } from "lucide-react";
 
-export default function Home() {
+export default async function Home() {
+  const { data: blogs } = await readBlog();
   return (
     <main className="flex items-center justify-center bg-background">
       <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
-        <div className="max-w-3xl mx-auto text-center">
+        {/* <div className="max-w-3xl mx-auto text-center">
           <div>
             <span className="w-auto px-6 py-3 rounded-full bg-secondary">
               <span className="text-sm font-medium text-primary">
@@ -27,37 +29,42 @@ export default function Home() {
               Connexion
             </Button>
           </div>
-        </div>
+        </div> */}
         <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
-          <div className="flex items-center justify-center [&>div]:w-full">
-            <div className="rounded-xl border bg-card text-card-foreground mt-5">
-              <div className="flex-col p-6 grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
-                <div className="space-y-1">
-                  <h3 className="font-semibold leading-none tracking-tight">
-                    Paul Bocuse: la polygamie blanche autorisé
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Fugit tenetur pariatur iure non vero explicabo qui, esse
-                    dolores repellendus!
-                  </p>
-                </div>
-                <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
-                  <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 py-2 px-3 shadow-none">
-                    <StarIcon className="mr-2 h-4 w-4" />
-                    Favoris
-                  </button>
+          {blogs?.map((blog, index) => {
+            return (
+              <div
+                key={index}
+                className="flex items-center justify-center [&>div]:w-full"
+              >
+                <div className="rounded-xl border bg-card text-card-foreground mt-5">
+                  <div className="flex-col p-6 grid grid-cols-1 items-start gap-4 space-y-0">
+                    <div className="space-y-2">
+                      <h3 className="font-semibold text-lg leading-none tracking-tight text-primary">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {blog.content}
+                      </p>
+                    </div>
+                    <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
+                      <button className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/80 h-9 py-2 px-3 shadow-none">
+                        <StarIcon className="mr-2 h-4 w-4" />
+                        Favoris
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-6 pt-0">
+                    <div className="flex space-x-4 text-sm text-muted-foreground">
+                      <div className="flex items-center">Actualité</div>
+                      <div className="flex items-center">20 avril 2023</div>
+                      <div>test</div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="p-6 pt-0">
-                <div className="flex space-x-4 text-sm text-muted-foreground">
-                  <div className="flex items-center">Actualité</div>
-                  <div className="flex items-center">20 avril 2023</div>
-                  <div>test</div>
-                </div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </main>
