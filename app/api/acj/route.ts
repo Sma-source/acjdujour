@@ -12,11 +12,22 @@ export const GET = async (request: Request) => {
   const id = searchParams.get("id");
 
   if (id === "*") {
-    const result = await supabase.from("acj").select("id").limit(10);
-    return Response.json({ ...result });
+    const { data, error } = await supabase.from("acj").select("id");
+    if (error) {
+      return new Response(JSON.stringify({ error }), { status: 500 });
+    }
+    return new Response(JSON.stringify({ data }), { status: 200 });
   } else if (id) {
-    const result = await supabase.from("acj").select("*").eq("id", id).single();
-    return Response.json({ ...result });
+    const { data, error } = await supabase
+      .from("acj")
+      .select("*")
+      .eq("id", id)
+      .single();
+    if (error) {
+      return new Response(JSON.stringify({ error }), { status: 500 });
+    }
+    return new Response(JSON.stringify({ data }), { status: 200 });
   }
-  return Response.json({});
+
+  return new Response(JSON.stringify({}), { status: 400 });
 };
