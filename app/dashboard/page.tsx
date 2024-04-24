@@ -25,13 +25,19 @@ const Dashboard = async () => {
 
       <div className="flex flex-col gap-y-4">
         {blogs?.map((blog, index) => {
+          const when = new Date(blog.created_at);
           return (
             <Card key={index} className="flex items-center justify-between p-4">
               <div>
                 <h2 className="font-semibold text-xl text-primary">
                   {blog.title}
                 </h2>
-                <p>{blog.content}</p>
+                <p>
+                  {" "}
+                  {new Intl.DateTimeFormat("fr-FR", {
+                    dateStyle: "medium",
+                  }).format(when)}
+                </p>
               </div>
             </Card>
           );
