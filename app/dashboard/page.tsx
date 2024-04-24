@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { readBlog } from "@/lib/actions/acj";
+import { Edit, Trash } from "lucide-react";
 
 import Link from "next/link";
 
@@ -39,6 +40,8 @@ const Dashboard = async () => {
                   }).format(when)}
                 </p>
               </div>
+
+              <Actions />
             </Card>
           );
         })}
@@ -48,3 +51,18 @@ const Dashboard = async () => {
 };
 
 export default Dashboard;
+
+const Actions = () => {
+  return (
+    <div className=" flex gap-x-4">
+      <Link href="">
+        <Button variant="outline" size="icon">
+          <Edit className="w-4 h-4" />
+        </Button>
+      </Link>
+      <Button variant="outline">
+        <Trash className="w-4 h-4" />
+      </Button>
+    </div>
+  );
+};
