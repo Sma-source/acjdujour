@@ -4,6 +4,7 @@ import { readBlog } from "@/lib/actions/acj";
 import { Edit, Trash } from "lucide-react";
 
 import Link from "next/link";
+import DeleteAlert from "./components/DeleteAlert";
 
 const Dashboard = async () => {
   const { data: blogs } = await readBlog();
@@ -60,9 +61,7 @@ const Actions = () => {
           <Edit className="w-4 h-4" />
         </Button>
       </Link>
-      <Button variant="outline">
-        <Trash className="w-4 h-4" />
-      </Button>
+      <DeleteAlert />
     </div>
   );
 };
