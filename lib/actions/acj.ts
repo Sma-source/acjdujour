@@ -60,3 +60,8 @@ export const DeleteBlog = async (acjId: string) => {
   revalidatePath(`/acj/${acjId}`);
   return JSON.stringify(result);
 };
+
+export const readBlogContentById = async (acjId: string) => {
+  const supabase = await createClient();
+  return supabase.from("acj").select("*").eq("id", acjId).single();
+};
