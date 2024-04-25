@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
@@ -11,11 +12,35 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-import { Trash } from "lucide-react";
-import React from "react";
+import { LoaderCircle, Trash } from "lucide-react";
+import React, { ChangeEvent, useTransition } from "react";
+import { DeleteBlog } from "@/lib/actions/acj";
+import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
 const DeleteAlert = ({ acjId }: { acjId: string }) => {
-  const onSubmit = () => {};
+  const [isPending, startTransition] = useTransition();
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    startTransition(async () => {
+      const result = await DeleteBlog(acjId);
+      const { error } = JSON.parse(result);
+      if (error?.message) {
+        toast({
+          title: "Fail to update ",
+          description: (
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">{error?.message}</code>
+            </pre>
+          ),
+        });
+      } else {
+        toast({
+          title: "Successfully delete 🎉",
+        });
+      }
+    });
+  };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -35,7 +60,14 @@ const DeleteAlert = ({ acjId }: { acjId: string }) => {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>
             <form onSubmit={onSubmit}>
-              <Button>Continue</Button>
+              <Button className="flex gap-1 items-center">
+                <LoaderCircle
+                  className={cn(" animate-spin ", {
+                    hidden: !isPending,
+                  })}
+                />
+                Continue
+              </Button>
             </form>
           </AlertDialogAction>
         </AlertDialogFooter>
