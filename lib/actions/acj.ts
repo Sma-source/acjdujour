@@ -52,3 +52,11 @@ export const readBlog = async () => {
     .select("*")
     .order("created_at", { ascending: false });
 };
+
+export const DeleteBlog = async (acjId: string) => {
+  const supabase = await createClient();
+  const result = await supabase.from("acj").delete().eq("id", acjId);
+  revalidatePath(DASHBOARD);
+  revalidatePath(`/acj/${acjId}`);
+  return JSON.stringify(result);
+};
