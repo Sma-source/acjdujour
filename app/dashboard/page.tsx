@@ -4,7 +4,7 @@ import { readBlog } from "@/lib/actions/acj";
 import { Edit, Trash } from "lucide-react";
 
 import Link from "next/link";
-import DeleteAlert from "./components/DeleteAlert";
+import DeleteAlert from "./acj/components/DeleteAlert";
 
 const Dashboard = async () => {
   const { data: blogs } = await readBlog();
