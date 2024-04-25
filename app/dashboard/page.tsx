@@ -56,7 +56,7 @@ export default Dashboard;
 const Actions = ({ id }: { id: string }) => {
   return (
     <div className=" flex gap-x-4">
-      <Link href="">
+      <Link href={`/dashboard/acj/edit/${id}`}>
         <Button variant="outline" size="icon">
           <Edit className="w-4 h-4" />
         </Button>
