@@ -42,7 +42,7 @@ const Dashboard = async () => {
                 </p>
               </div>
 
-              <Actions />
+              <Actions id={blog.id} />
             </Card>
           );
         })}
@@ -53,7 +53,7 @@ const Dashboard = async () => {
 
 export default Dashboard;
 
-const Actions = () => {
+const Actions = ({ id }: { id: string }) => {
   return (
     <div className=" flex gap-x-4">
       <Link href="">
@@ -61,7 +61,7 @@ const Actions = () => {
           <Edit className="w-4 h-4" />
         </Button>
       </Link>
-      <DeleteAlert />
+      <DeleteAlert acjId={id} />
     </div>
   );
 };
