@@ -15,6 +15,7 @@ import { Trash } from "lucide-react";
 import React from "react";
 
 const DeleteAlert = ({ acjId }: { acjId: string }) => {
+  const onSubmit = () => {};
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -32,7 +33,11 @@ const DeleteAlert = ({ acjId }: { acjId: string }) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction>
+            <form onSubmit={onSubmit}>
+              <Button>Continue</Button>
+            </form>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
