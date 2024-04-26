@@ -73,5 +73,6 @@ export const updateBlogById = async (
   const supabase = await createClient();
   const result = await supabase.from("acj").update(data).eq("id", acjId);
   revalidatePath(DASHBOARD);
+  revalidatePath(`/acj/${acjId}`);
   return JSON.stringify(result);
 };
