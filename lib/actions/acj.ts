@@ -65,3 +65,13 @@ export const readBlogContentById = async (acjId: string) => {
   const supabase = await createClient();
   return supabase.from("acj").select("*").eq("id", acjId).single();
 };
+
+export const updateBlogById = async (
+  acjId: string,
+  data: AcjFormSchemaType
+) => {
+  const supabase = await createClient();
+  const result = await supabase.from("acj").update(data).eq("id", acjId);
+  revalidatePath(DASHBOARD);
+  return JSON.stringify(result);
+};
