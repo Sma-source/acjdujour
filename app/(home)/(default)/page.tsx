@@ -10,11 +10,19 @@ export default async function Home() {
     blogs = [];
   }
 
+  const truncate = (text: string, maxLength: number) => {
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + "...";
+  };
+
   return (
     <main className="flex items-center justify-center bg-background">
       <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
         <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
           {blogs?.map((blog, index) => {
+            const when = new Date(blog?.created_at);
             return (
               <div key={index}>
                 <Link href={"/acj/" + blog.id}>
@@ -25,7 +33,7 @@ export default async function Home() {
                           {blog.title}
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                          {blog.content}
+                          {truncate(blog.content, 50)}
                         </p>
                       </div>
                       <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
@@ -38,7 +46,12 @@ export default async function Home() {
                     <div className="p-6 pt-0">
                       <div className="flex space-x-4 text-sm text-muted-foreground">
                         <div className="flex items-center">Actualité</div>
-                        <div className="flex items-center">20 avril 2023</div>
+                        <div className="flex items-center">
+                          {" "}
+                          {new Intl.DateTimeFormat("fr-FR", {
+                            dateStyle: "medium",
+                          }).format(when)}
+                        </div>
                         <div>test</div>
                       </div>
                     </div>
