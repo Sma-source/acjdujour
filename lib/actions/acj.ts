@@ -76,3 +76,12 @@ export const updateBlogById = async (
   revalidatePath(`/acj/${acjId}`);
   return JSON.stringify(result);
 };
+
+export const readBlogByUser = async (userId: string) => {
+  const supabase = await createClient();
+  return supabase
+    .from("acj")
+    .select("*")
+    .eq("user_id", userId) // Filter based on user ID
+    .order("created_at", { ascending: false });
+};
