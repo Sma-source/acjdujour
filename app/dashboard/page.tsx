@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { readBlog } from "@/lib/actions/acj";
-import { Edit, Trash } from "lucide-react";
+import {
+  CirclePlus,
+  Edit,
+  Plus,
+  SquarePen,
+  SquarePlus,
+  Trash,
+} from "lucide-react";
 
 import Link from "next/link";
 import DeleteAlert from "./acj/components/DeleteAlert";
@@ -15,14 +22,17 @@ const Dashboard = async () => {
     <div className="grid items-start gap-y-8">
       <div className="flex items-center justify-between px-2">
         <div className="grid gap-1">
-          <h1 className="text-3xl md:text-4xl">Your Notes</h1>
+          <h1 className="text-3xl md:text-4xl">Vos Acj</h1>
           <p className="text-lg text-muted-foreground">
-            Here you can see and create new notes for user id
+            Ici vous pouvoir voir, modifier et créer des acj
           </p>
         </div>
-        <Button>
-          <Link href="/dashboard/acj/create">Create a new Note</Link>
-        </Button>
+        <Link href="/dashboard/acj/create">
+          <Button className="flex items-center gap-1">
+            Ajouter
+            <Plus />
+          </Button>
+        </Link>
       </div>
 
       <div className="flex flex-col gap-y-4">
