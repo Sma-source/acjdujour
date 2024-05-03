@@ -46,59 +46,71 @@ const AcjForm = ({
     onHandleSubmit(data);
   }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="Blog Post Title"
-                    className="border p-2 w-full"
-                    autoFocus
-                  />
-                </FormControl>
-                {form.getFieldState("title").invalid && //only show error message when user is typing
-                  form.getValues().title && <FormMessage />}
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="mb-4">
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="Blog Content"
-                    className="border p-2 w-full"
-                  />
-                </FormControl>
-                {form.getFieldState("content").invalid &&
-                  form.getValues().content && <FormMessage />}
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="mb-4">
-          <Button
-            type="submit"
-            role="button"
-            className="bg-blue-500 text-white py-2 px-4 rounded"
-            disabled={!form.formState.isValid}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
-    </Form>
+    <Card>
+      <CardHeader>
+        <CardTitle>Acj</CardTitle>
+        <CardDescription>Créer ou modifier selon votre guise!</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="grid gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor="title">Title</Label>
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Blog Post Title"
+                          className="w-full"
+                          autoFocus
+                        />
+                      </FormControl>
+                      {form.getFieldState("title").invalid && //only show error message when user is typing
+                        form.getValues().title && <FormMessage />}
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="title">Description</Label>
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Textarea
+                          {...field}
+                          placeholder="Blog Content"
+                          className="w-full min-h-32"
+                        />
+                      </FormControl>
+                      {form.getFieldState("content").invalid &&
+                        form.getValues().content && <FormMessage />}
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="mb-4">
+                <Button
+                  type="submit"
+                  role="button"
+                  className="bg-blue-500 text-white py-2 px-4 rounded"
+                  disabled={!form.formState.isValid}
+                >
+                  Submit
+                </Button>
+              </div>
+            </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   );
 };
 
