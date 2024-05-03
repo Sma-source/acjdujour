@@ -54,10 +54,14 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const { data } = await supabase.auth.getUser();
-  // console.log(data);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!data.user) {
+  if (user && request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/acj", request.url));
+  }
+  if (!user && request.nextUrl.pathname !== "/") {
     return NextResponse.redirect(new URL("/", request.url));
   }
   return response;
