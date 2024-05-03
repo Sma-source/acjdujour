@@ -16,6 +16,6 @@ export const config = {
      */
     "/dashboard/:path*",
     "/",
-    "/acj",
+    "/acj/:path*",
   ],
 };
