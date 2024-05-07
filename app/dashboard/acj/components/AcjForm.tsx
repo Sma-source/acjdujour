@@ -100,10 +100,10 @@ const AcjForm = ({
                 <Button
                   type="submit"
                   role="button"
-                  className="bg-blue-500 text-white py-2 px-4 rounded"
+                  className="py-2 px-4 rounded-lg"
                   disabled={!form.formState.isValid}
                 >
-                  Submit
+                  Envoyer
                 </Button>
               </div>
             </div>
