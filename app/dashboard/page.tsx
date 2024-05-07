@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { readBlog } from "@/lib/actions/acj";
+import { readBlog, readBlogByUser } from "@/lib/actions/acj";
 import {
   CirclePlus,
   Edit,
@@ -12,10 +12,13 @@ import {
 
 import Link from "next/link";
 import DeleteAlert from "./acj/components/DeleteAlert";
+import getUserSession from "@/lib/getUserSession";
 
 const Dashboard = async () => {
-  const { data: blogs } = await readBlog();
-  // const user = await getUserSession();
+  const user = await getUserSession();
+  const { data: blogs } = await readBlogByUser(
+    user.data.session?.user.id || ""
+  );
   // console.log(user.data.session?.user.id);
 
   return (
