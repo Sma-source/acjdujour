@@ -85,3 +85,40 @@ export const readBlogByUser = async (userId: string) => {
     .eq("user_id", userId) // Filter based on user ID
     .order("created_at", { ascending: false });
 };
+
+export const readFav = async (userId: string) => {
+  const supabase = await createClient();
+  return supabase.from("favorites").select("*").eq("user_id", userId);
+};
+
+export const addFavorite = async (formData: FormData) => {
+  const acjId = formData.get("acjId") as string;
+  const userId = formData.get("userId") as string;
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("favorites")
+    .insert({ user_id: userId, acj_id: acjId });
+  if (error) {
+    return { success: false, error };
+  }
+
+  revalidatePath("/acj");
+  return { success: true };
+};
+
+export const deleteFavorite = async (formData: FormData) => {
+  const acjId = formData.get("acjId") as string;
+  const userId = formData.get("userId") as string;
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("favorites")
+    .delete()
+    .match({ user_id: userId, acj_id: acjId });
+  if (error) {
+    return { success: false, error };
+  }
+  revalidatePath("/acj");
+  return { success: true };
+};
