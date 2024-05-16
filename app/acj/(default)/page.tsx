@@ -1,15 +1,36 @@
 import React from "react";
-import { readBlog } from "@/lib/actions/acj";
-import { StarIcon } from "lucide-react";
+import { readBlog, readFav } from "@/lib/actions/acj";
 import Link from "next/link";
+import FavButton from "./components/FavButton";
+import getUserSession from "@/lib/getUserSession";
 
 export default async function Home() {
+  const { data: session } = await getUserSession();
+
+  const idUser = session.session?.user.id;
   let { data: blogs } = await readBlog();
 
   if (!blogs?.length) {
     blogs = [];
   }
+  let { data: favs } = await readFav(idUser || "");
 
+  let combinedData = [];
+
+  if (blogs && blogs.length > 0 && favs && favs.length > 0) {
+    // Map over blogs and add fav data if it exists
+    combinedData = blogs.map((blog) => {
+      const fav = favs.find((fav) => fav.acj_id === blog.id);
+      return {
+        ...blog,
+        favorite: fav ? true : false, // Add a favorite property based on whether a fav exists
+      };
+    });
+  } else {
+    // Handle the case when either blogs or favs is empty or undefined
+    combinedData = blogs || favs || [];
+  }
+  // console.log(combinedData);
   const truncate = (text: string, maxLength: number) => {
     if (text.length <= maxLength) {
       return text;
@@ -20,8 +41,9 @@ export default async function Home() {
   return (
     <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
       <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
-        {blogs?.map((blog) => {
+        {combinedData?.map((blog) => {
           const when = new Date(blog?.created_at);
+
           return (
             <div key={blog.id}>
               <div className="rounded-xl border bg-card text-card-foreground mt-5">
@@ -47,9 +69,11 @@ export default async function Home() {
                       }).format(when)}
                     </div>
                     <div>
-                      <button className="flex items-center">
-                        <StarIcon className="mr-1 h-5 w-5" />
-                      </button>
+                      <FavButton
+                        acjId={blog.id}
+                        userId={blog.user_id}
+                        isFavorited={blog.favorite}
+                      />
                     </div>
                   </div>
                 </div>
