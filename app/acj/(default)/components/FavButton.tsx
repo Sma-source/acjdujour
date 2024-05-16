@@ -20,9 +20,9 @@ const FavButton = ({
           <input type="hidden" name="userId" value={userId} />
           <button
             type="submit"
-            className="bg-transparent border-none text-red-500 cursor-pointer hover:text-red-500 hover:scale-110 transition duration-300"
+            className="bg-transparent border-none text-primary cursor-pointer hover:text-primary hover:scale-110 transition duration-300"
           >
-            <Heart className="w-6 h-6 fill-red-500" />
+            <Heart className="w-6 h-6 fill-primary" />
           </button>
         </form>
       ) : (
@@ -31,7 +31,7 @@ const FavButton = ({
           <input type="hidden" name="userId" value={userId} />
           <button
             type="submit"
-            className="bg-transparent border-none text-red-500 cursor-pointer hover:text-red-500 hover:scale-110 transition duration-300"
+            className="bg-transparent border-none text-primary cursor-pointer hover:text-primary hover:scale-110 transition duration-300"
           >
             <Heart className="w-6 h-6 fill-none" />
           </button>
