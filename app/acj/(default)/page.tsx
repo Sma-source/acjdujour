@@ -3,6 +3,7 @@ import { readBlog, readFav } from "@/lib/actions/acj";
 import Link from "next/link";
 import FavButton from "./components/FavButton";
 import getUserSession from "@/lib/getUserSession";
+import FilterItems from "./components/FilterItems";
 
 export default async function Home() {
   const { data: session } = await getUserSession();
@@ -40,6 +41,9 @@ export default async function Home() {
 
   return (
     <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
+      <div className="container mx-auto px-5 lg:px-10">
+        <FilterItems />
+      </div>
       <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
         {combinedData?.map((blog) => {
           const when = new Date(blog?.created_at);
