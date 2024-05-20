@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { CreditCard, Home, LockOpenIcon, Settings } from "lucide-react";
+import { CreditCard, Heart, Home, LockOpenIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
@@ -19,7 +19,7 @@ import { useUser } from "@/lib/store/user";
 
 export const navItems = [
   { name: "Tableau de bord", href: "/dashboard", icon: Home },
-  { name: "Paramètres", href: "/dashboard/settings", icon: Settings },
+  { name: "Favoris", href: "/dashboard/favoris", icon: Heart },
   { name: "Factures", href: "/dashboard/billing", icon: CreditCard },
 ];
 
