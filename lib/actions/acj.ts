@@ -91,6 +91,22 @@ export const readFav = async (userId: string) => {
   return supabase.from("favorites").select("*").eq("user_id", userId);
 };
 
+export const readFavs = async (userId: string) => {
+  const supabase = await createClient();
+  return supabase
+    .from("favorites")
+    .select(
+      `
+    acj_id,
+    acj (
+      id,
+      title
+    )
+  `
+    )
+    .eq("user_id", userId);
+};
+
 export const addFavorite = async (formData: FormData) => {
   const acjId = formData.get("acjId") as string;
   const userId = formData.get("userId") as string;
