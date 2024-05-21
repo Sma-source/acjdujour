@@ -6,9 +6,11 @@ import getUserSession from "@/lib/getUserSession";
 import FilterItems from "./components/FilterItems";
 
 export default async function Home() {
-  const { data: session } = await getUserSession();
+  const {
+    data: { user },
+  } = await getUserSession();
 
-  const idUser = session.session?.user.id;
+  const idUser = user?.id;
   let { data: blogs } = await readBlog();
 
   if (!blogs?.length) {
