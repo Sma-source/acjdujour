@@ -15,10 +15,10 @@ import DeleteAlert from "./acj/components/DeleteAlert";
 import getUserSession from "@/lib/getUserSession";
 
 const Dashboard = async () => {
-  const user = await getUserSession();
-  const { data: blogs } = await readBlogByUser(
-    user.data.session?.user.id || ""
-  );
+  const {
+    data: { user },
+  } = await getUserSession();
+  const { data: blogs } = await readBlogByUser(user?.id || "");
   // console.log(user.data.session?.user.id);
 
   return (
