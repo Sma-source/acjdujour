@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       acj: {
         Row: {
+          category_id: number | null
           content: string
           created_at: string
           id: string
@@ -18,6 +19,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          category_id?: number | null
           content: string
           created_at?: string
           id?: string
@@ -25,6 +27,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          category_id?: number | null
           content?: string
           created_at?: string
           id?: string
@@ -33,7 +36,62 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "fk_category"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "public_acj_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: number
+          name: string
+        }
+        Update: {
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      favorites: {
+        Row: {
+          acj_id: string | null
+          id: number
+          user_id: string | null
+        }
+        Insert: {
+          acj_id?: string | null
+          id?: number
+          user_id?: string | null
+        }
+        Update: {
+          acj_id?: string | null
+          id?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "favorites_acj_id_fkey"
+            columns: ["acj_id"]
+            isOneToOne: false
+            referencedRelation: "acj"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "favorites_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
