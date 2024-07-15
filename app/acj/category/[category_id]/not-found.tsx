@@ -13,15 +13,17 @@ const NotFound = () => {
     >
       <h1
         style={{
-          color: "white",
           fontSize: "28px",
         }}
       >
-        Sorry, the page you requested could not be found
+        Désolé, la page que vous recherchez n'éxiste pas
       </h1>
 
-      <p style={{ fontSize: "20px" }}>
-        please visit <Link href={"/users"}>Users page</Link>
+      <p>
+        retournez à la{" "}
+        <Link className="underline font-bold" href={"/"}>
+          page d'accueil
+        </Link>
       </p>
     </main>
   );
