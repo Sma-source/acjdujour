@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { usePathname } from "next/navigation";
 
-const LogIn = () => {
+const LogIn = ({ title, className }: { title: string; className: string }) => {
   const pathname = usePathname();
   const supabase = createClient();
 
@@ -16,7 +16,11 @@ const LogIn = () => {
       },
     });
   };
-  return <Button onClick={loginWithGoogle}>Se connecter</Button>;
+  return (
+    <Button className={className} onClick={loginWithGoogle}>
+      {title}{" "}
+    </Button>
+  );
 };
 
 export default LogIn;
