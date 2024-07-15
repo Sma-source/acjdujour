@@ -138,3 +138,13 @@ export const deleteFavorite = async (formData: FormData) => {
   revalidatePath("/acj");
   return { success: true };
 };
+
+export const readBlogCat = async () => {
+  const supabase = await createClient();
+  return supabase.from("categories").select("*");
+};
+
+export const readByCat = async (category_id: string) => {
+  const supabase = await createClient();
+  return supabase.from("acj").select("*").eq("category_id", category_id);
+};
