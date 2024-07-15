@@ -4,6 +4,7 @@ import Link from "next/link";
 import getUserSession from "@/lib/getUserSession";
 import React from "react";
 import FavButton from "../../(default)/components/FavButton";
+import { notFound } from "next/navigation";
 
 const page = async ({ params }: { params: { category_id: string } }) => {
   const {
@@ -13,8 +14,8 @@ const page = async ({ params }: { params: { category_id: string } }) => {
   const idUser = user?.id;
   let { data: blogs } = await readByCat(params.category_id);
 
-  if (!blogs?.length) {
-    blogs = [];
+  if (!blogs || !blogs.length) {
+    notFound(); // Redirect to Next.js not found page
   }
   const { data: cats } = await readBlogCat();
   let { data: favs } = await readFav(idUser || "");
@@ -41,6 +42,7 @@ const page = async ({ params }: { params: { category_id: string } }) => {
     }
     return text.slice(0, maxLength) + "...";
   };
+
   return (
     <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
       <div className="container mx-auto px-5 lg:px-10">
