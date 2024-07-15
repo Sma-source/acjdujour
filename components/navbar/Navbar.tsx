@@ -22,12 +22,16 @@ const Navbar = () => {
       <div className="container flex items-center justify-between">
         <Link href="/">
           <h1 className="font-bold text-3xl">
-            Acj<span className="text-primary">Jouuur</span>
+            AC<span className="text-primary">J</span>
           </h1>
         </Link>
         <div className="flex items-center gap-x-5">
           <ModeToggle />
-          {user ? <Profile /> : <LogIn />}
+          {user ? (
+            <Profile />
+          ) : (
+            <LogIn className="rounded-md shadow-md" title="Se connecter" />
+          )}
         </div>
       </div>
     </nav>
