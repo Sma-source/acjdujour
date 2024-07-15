@@ -7,6 +7,7 @@ import { z } from "zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -21,6 +22,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
@@ -40,6 +48,7 @@ const AcjForm = ({
     defaultValues: {
       title: acj?.title || "",
       content: acj?.content || "",
+      category_id: acj?.category_id.toString() || "",
     },
   });
   function onSubmit(data: z.infer<typeof AcjFormSchema>) {
@@ -56,7 +65,7 @@ const AcjForm = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="grid gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="title">Title</Label>
+                <Label htmlFor="title">Titre</Label>
                 <FormField
                   control={form.control}
                   name="title"
@@ -65,7 +74,7 @@ const AcjForm = ({
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder="Blog Post Title"
+                          placeholder="Le titre..."
                           className="w-full"
                           autoFocus
                         />
@@ -86,7 +95,7 @@ const AcjForm = ({
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Blog Content"
+                          placeholder="Le contenu..."
                           className="w-full min-h-32"
                         />
                       </FormControl>
@@ -96,6 +105,39 @@ const AcjForm = ({
                   )}
                 />
               </div>
+              <div className="grid gap-3">
+                <Label htmlFor="category">Catégories</Label>
+                <FormField
+                  control={form.control}
+                  name="category_id"
+                  render={({ field }) => (
+                    <FormItem>
+                      <Select
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selectionne une catégorie" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="1">Technologie</SelectItem>
+                          <SelectItem value="2">Sciences</SelectItem>
+                          <SelectItem value="3">Histoire</SelectItem>
+                          <SelectItem value="4">
+                            Langue et Expression
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+
+                      {form.getFieldState("category_id").invalid &&
+                        form.getValues().category_id && <FormMessage />}
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <div className="mb-4">
                 <Button
                   type="submit"
