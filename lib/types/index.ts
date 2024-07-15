@@ -4,4 +4,5 @@ export type IAcj = {
   title: string;
   content: string;
   user_id: string;
+  category_id: number;
 };
