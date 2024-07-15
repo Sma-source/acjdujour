@@ -1,9 +1,8 @@
 import React from "react";
-import { readBlog, readFav } from "@/lib/actions/acj";
+import { readBlog, readBlogCat, readFav } from "@/lib/actions/acj";
 import Link from "next/link";
 import FavButton from "./components/FavButton";
 import getUserSession from "@/lib/getUserSession";
-import FilterItems from "./components/FilterItems";
 
 export default async function Home() {
   const {
@@ -11,6 +10,9 @@ export default async function Home() {
   } = await getUserSession();
 
   const idUser = user?.id;
+
+  const { data: cats } = await readBlogCat();
+
   let { data: blogs } = await readBlog();
 
   if (!blogs?.length) {
@@ -44,7 +46,25 @@ export default async function Home() {
   return (
     <div className="relative items-center w-full px-5 py-12 mx-auto lg:px-16 max-w-7xl md:px-12">
       <div className="container mx-auto px-5 lg:px-10">
-        <FilterItems />
+        <div className="flex items-center md:justify-center gap-x-10 mt-5 mb-5 w-full overflow-x-scroll no-scrollbar ">
+          <Link
+            href="/"
+            className="flex flex-col gap-y-3 items-center flex-shrink-0"
+          >
+            <div className="relative w-6 h-6"></div>
+            <p className="text-xs font-medium">Tout</p>
+          </Link>
+          {cats?.map((item) => (
+            <Link
+              key={item.id}
+              href={"/acj/category/" + item.id}
+              className="flex flex-col gap-y-3 items-center flex-shrink-0"
+            >
+              <div className="relative w-6 h-6"></div>
+              <p className="text-xs font-medium">{item.name}</p>
+            </Link>
+          ))}
+        </div>
       </div>
       <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
         {combinedData?.map((blog) => {
