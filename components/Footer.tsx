@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="mr-4  md:flex mb-4">
               <Link
                 href={"/"}
-                className="font-normal flex space-x-2 items-center text-sm mr-4  text-black px-2 py-1  relative z-20"
+                className="font-normal flex space-x-2 items-center text-sm mr-4  text-black dark:text-neutral-100 px-2 py-1  relative z-20"
               >
                 <span>ACJ</span>
               </Link>
