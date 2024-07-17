@@ -27,7 +27,7 @@ export default function Homeland() {
             <br></br>
             <span className="text-primary"> Apprendre Chaque Jour</span>
           </h1>
-          <p className="text-gray-600 max-w-xl mx-auto leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto leading-relaxed">
             Rejoignez ACJ pour enrichir votre savoir et inspirer les autres avec
             des connaissances fascinantes.
           </p>
@@ -81,7 +81,7 @@ export default function Homeland() {
               </svg>
             </div>
           </div>
-          <p className="text-neutral-700 text-sm ml-8 relative z-40 lg:text-left text-center">
+          <p className="text-neutral-700 dark:text-neutral-400 text-sm ml-8 relative z-40 lg:text-left text-center">
             <span className="text-primary">5.0</span> par 200 utilisateurs
           </p>
         </div>
@@ -108,17 +108,17 @@ export default function Homeland() {
             <h3 className="text-primary font-semibold">
               <HeartCrack className="text-center h-24 w-24 mx-auto" />
             </h3>
-            <p className="text-gray-800 text-3xl font-semibold sm:text-4xl">
+            <p className="text-gray-800 dark:text-gray-100 text-3xl font-semibold sm:text-4xl">
               Arrêtez de Perdre Votre Temps!
             </p>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-200">
               Profitez de chaque moment pour découvrir quelque chose de nouveau.
             </p>
           </div>
           <div className="mt-4">
             <a
               href="/"
-              className="inline-block py-2 px-4 text-white font-medium bg-gray-800 duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg shadow-md hover:shadow-none"
+              className="inline-block py-2 px-4 text-white font-medium bg-gray-800 dark:bg-primary duration-150 hover:bg-gray-700 active:bg-gray-900 rounded-lg shadow-md hover:shadow-none"
             >
               Apprenez maintenant
             </a>
